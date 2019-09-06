@@ -1,0 +1,68 @@
+[{
+    "sovrascritto" : 2,
+    "timestamp" : 47264587326587643278,
+    "num_rigo" : 1,
+  "personale" : 
+    [
+      {
+        "quantita" : 3,
+        "qualita" : "bracciante", 
+        "ore" :  3
+      },
+      {
+        "quantita" : 3,
+        "qualita" : "operai", 
+        "ore" :  3
+      }
+    ],
+  "attrezzatura" :  
+    [
+      
+      { 
+        "nomeAtt" : "scavatore",
+        "quantitaAtt" :  3
+        
+      },
+      { 
+        "nomeAtt" : "gru",
+        "quantitaAtt" :  1
+        
+      }
+    ],
+   "descrizione" : "i lavori sono stati svolti benino oggi"
+  
+},
+{
+    "sovrascritto" : 0,
+    "timestamp" : 47264587326587643278,
+    "num_rigo" : 2,
+  "personale" : 
+    [
+      {
+        "quantita" : 2,
+        "qualita" : "pippo", 
+        "ore" :  3
+      },
+      {
+        "quantita" : 1,
+        "qualita" : "poo", 
+        "ore" :  2
+      }
+    ],
+  "attrezzatura" :  
+    [
+      
+      { 
+        "nomeAtt" : "macchina",
+        "quantitaAtt" :  3
+        
+      },
+      { 
+        "nomeAtt" : "gru",
+        "quantitaAtt" :  1
+        
+      }
+    ],
+   "descrizione" : "i lavori sono stati svolti male oggi"
+  
+}]

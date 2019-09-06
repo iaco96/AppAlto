@@ -1,0 +1,135 @@
+<div class="container" >
+ 
+    <br>
+    <h2 style="text-align: center;"><i class="material-icons">menu_book</i> Giornale dei lavori - Modifica rigo #{{num_rigo}}</h2>
+    
+    <hr>
+
+  
+  <h4>Dati del personale: </h4>
+  <div class="row">
+  <form #giornaleForm="ngForm">
+      <div class="form-group col order-first">
+      <label for="quantita">Quantità del personale: </label>
+      <input type="number" class="form-control" id="quantita" [(ngModel)]="quantita" name="quantita"
+      #qnt="ngModel" required>
+      <div [hidden]="qnt.valid || qnt.pristine"
+           class="alert alert-danger">
+           Quantità del personale is required
+          </div>
+
+      <label for="qualita">Qualita del personale: </label>
+      <input type="text" class="form-control" id="qualita" [(ngModel)]="qualita" name="qualita"
+      #qual="ngModel" required>
+      <div [hidden]="qual.valid || qual.pristine"
+      class="alert alert-danger">
+      Qualità del personale is required
+     </div>
+
+      <label for="ore">Ore del personale: </label>
+      <input type="number" class="form-control" id="ore" min="1"  [(ngModel)]="ore" name="ore"
+      #or="ngModel" required>
+      <div [hidden]="or.valid || or.pristine"
+      class="alert alert-danger">
+      Ore del personale is required
+     </div>
+            <p>
+
+            </p>
+      <button class="btn btn-outline-info" (click)="addPersonale(giornaleForm)" [disabled]="!giornaleForm.form.valid"><i class="material-icons vertical-align-middle padding-bottom-3">playlist_add</i>&nbsp;Aggiungi personale</button>    
+       
+    </div>
+  </form>
+ 
+
+  <div class="col-md-4 ml-auto">
+    <h6>Personale inserito: </h6>
+    <ul>
+      <li *ngFor="let pers of personale" >
+        <b>Quantità: </b> {{pers.quantita}}
+        <b>Qualità: </b>{{pers.qualita}}
+        <b>Ore: </b>{{pers.ore}}
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+
+
+
+
+<br>
+
+<h4>Dati delle attrezzature: </h4>
+<div class="row">
+    
+    <form #giornale2Form="ngForm">
+        <div class="form-group col order-first">
+        <label for="nomeAtt">Nome attrezzatura: </label>
+        <input type="text" class="form-control" id="nomeAtt" [(ngModel)]="nomeAtt" name="nomeAtt"
+        #nom="ngModel" required>
+          <div [hidden]="nom.valid || nom.pristine"
+           class="alert alert-danger">
+           Nome attrezzatura is required
+          </div>
+  
+        <label for="quantitaAtt">Quantita dell'attrezzatura: </label>
+        <input type="number" class="form-control" id="quantitaAtt" [(ngModel)]="quantitaAtt" name="quantitaAtt"
+        #quant="ngModel" required>
+            <div [hidden]="quant.valid || quant.pristine"
+           class="alert alert-danger">
+           Quantità dell'attrezzatura is required
+          </div>
+              <p>
+  
+              </p>
+        <button class="btn btn-outline-info" (click)="addAttrezzatura(giornale2Form)" [disabled]="!giornale2Form.form.valid"><i class="material-icons vertical-align-middle padding-bottom-3">playlist_add</i>&nbsp;Aggiungi attrezzatura</button>    
+         
+      </div>
+    </form>
+    
+  
+    <div class="col-md-4 ml-auto">
+        <h6>Attrezzature inserite: </h6>
+        <ul>
+          <li *ngFor="let att of attrezzatura" >
+            <b>Nome:</b> {{att.nomeAtt}}
+           <b>Quantità:</b>  {{att.quantitaAtt}}
+            
+          </li>
+        </ul>
+      </div>
+</div>
+
+
+
+<h4>Descrizione lavoro: </h4>
+  <div class="row">
+      <form #giornale3Form="ngForm">
+          <div class="form-group col order-first">
+          
+          <input type="text" class="form-control" id="descrizione2" [(ngModel)]="descrizione2" name="descrizione2"
+          #desc="ngModel" required>
+          <div [hidden]="desc.valid || desc.pristine"
+           class="alert alert-danger">
+           Descrizione del lavoro is required
+          </div>
+                <p>
+    
+                </p>
+          <button class="btn btn-outline-info" (click)="addDescrizione(giornale3Form)" [disabled]="!giornale3Form.form.valid"><i class="material-icons vertical-align-middle padding-bottom-3">playlist_add</i>&nbsp;Aggiungi descrizione</button>    
+           
+        </div>
+      </form>
+
+      <div class="col-md-4 ml-auto">
+          <h6>Descrizione inserita: </h6>
+            {{descrizione}}
+        </div>
+      </div>
+
+<br>
+
+    <button class="btn btn-info" (click)="updateGiornale();"  [disabled]="!giornale3Form.form.valid || !giornale2Form.form.valid || !giornaleForm.form.valid" style="margin:5em;"><i class="material-icons vertical-align-middle padding-bottom-3">edit</i>&nbsp;Modifica rigo</button>
+    </div>

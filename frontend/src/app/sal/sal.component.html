@@ -1,0 +1,89 @@
+<div *ngIf="filtersLoaded | async; else loading" style="margin-left:1em; margin-right: 1em">
+    <div class="container">
+        <br>
+        <div class="row"> 
+            <div class="col-sm">
+                <h2 style="text-align: center;"><i class="material-icons vertical-align-middle padding-bottom-3">bar_chart</i> Stato avanzamento lavori</h2>
+               </div>
+          </div>
+          <hr>
+        <h3 *ngIf="sal.length>0">Sal #{{sal[0].num_sal}} </h3>
+        <div class="row" *ngIf="sal.length>0">
+          <div class="col-sm">
+        <table class="table table-hover "> 
+          <thead > 
+            <tr> 
+              <th scope="col">#</th> 
+              <th scope="col">Codice Lavoro</th> 
+              <th scope="col">Nome Lavoro</th> 
+              <th scope="col">Percentuale</th> 
+              <th scope="col">Importo unitario</th> 
+              <th scope="col">Totale</th> 
+            </tr> 
+          </thead> 
+          <tbody> 
+            <tr *ngFor="let rigo of sal[0].righi; let i=index; trackBy: trackElement"> 
+             
+                  <th scope="row">{{i+1}}</th> 
+         
+                  <td>  
+                    {{rigo.codLavoro}} 
+                   </td> 
+         
+                  <td>  
+                    {{rigo.nomeLavoro}} 
+                  </td> 
+         
+                  <td>  
+                    {{rigo.percentuale_raggiunta_lavoro}}%
+                  </td> 
+        
+                  <td> 
+                    {{rigo.costoLavoro}}&euro; <br>
+                    ({{rigo.percentuale_lavoro_sul_totale}}%)
+                  </td>
+         
+                  <td> 
+                    {{rigo.costo_raggiunto}}&euro;<br>
+                    ({{rigo.percentuale_lavoro_sul_totale_raggiunta}}%)
+                  </td> 
+               
+            </tr> 
+          </tbody> 
+        </table>
+      </div>
+      </div>
+        
+
+
+<br>
+<br>
+
+<div class="row">
+  <div class="col-sm">
+    <div *ngIf="salDaCompilareLoaded | async">
+        <div *ngIf="soglia_superata && cookieService.get('ruolo') == 'dir'">
+          <button (click)="abilitaSal()" class="btn btn-danger"><i class="material-icons vertical-align-middle padding-bottom-3">check</i>&nbsp;Compila SAL numero {{num_sal}}</button>
+        </div>
+        </div>
+      </div>
+</div>
+<br>
+
+<h6> Seleziona la data della quale vuoi vedere i sal</h6>
+
+
+<div class="row">
+    <div class="col-sm">
+        <div class="col-sm">
+            <bs-datepicker-inline
+            placeholder="Daterangepicker"
+            bsDaterangepicker
+            [dateCustomClasses]="dateCustomClasses"
+            (bsValueChange)="onValueChange($event)" class="theme-red"></bs-datepicker-inline>
+<button routerLink="/visualizzaSal/{{data}}" class="btn btn-outline-danger" style="margin: 10px; text-align: left;"><i class="material-icons vertical-align-middle padding-bottom-3">search</i>&nbsp;Visualizza sal</button>
+</div>
+</div>
+</div>
+
+</div>

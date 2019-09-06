@@ -1,0 +1,158 @@
+<nav class="navbar navbar-expand-md bg-primary navbar-dark sticky-top" style="opacity: 0.90">
+    <ul class="navbar-nav ">
+      <li class="nav-item active">
+        <a class="navbar-brand" routerLink="/appalto">AppAlto</a>
+      </li>
+      
+    </ul>
+  
+  
+  
+  
+    <ul class="navbar-nav ml-auto">
+  
+   <div *ngIf="filtersLoaded | async; else loading" style="text-align:right;">
+      <li *ngIf="informazioni!==undefined">
+        <div class="btn-group" dropdown>
+            <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown"
+                    aria-controls="dropdown-basic">
+           {{informazioni.ruolo | uppercase}} {{informazioni.cognome | titlecase}} {{informazioni.nome | titlecase}}  <span class="caret badge badge-light">{{conta()}}</span>
+           
+            </button>
+            <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+                role="menu" aria-labelledby="button-basic">
+  
+  
+             <div *ngIf="informazioni.ruolo=='dir'">
+               <div *ngIf="check.libretti.length!=0">
+                 
+                 <li *ngFor="let c of check.libretti">
+                    Devi inserire la riserva nel libretto 
+                   <a class="dropdown-item" href="#">{{c.num_libretto}} in data {{c.timestamp | date: 'yyyy-MM-dd'}}</a>
+                 </li>
+               </div>
+              
+               <div *ngIf="!check.giornale">
+                 <li>
+                   <a class="dropdown-item">Devi compilare il giornale odierno</a>
+                </li>
+               </div>
+  
+               <div *ngIf="check.giornale">
+                  <li>
+                    <a class="dropdown-item">Il giornale odierno è stato compilato</a>
+                 </li>
+                </div>
+  
+              <div *ngIf="check.soglia_superata">
+                <li>
+                  <a class="dropdown-item">Devi compilare il sal numero {{check.num_sal}}</a>
+                </li>
+              </div>
+  
+               
+              </div>
+  
+          <!------------------------------------------------------------------------------------------->
+  
+              <div *ngIf="informazioni.ruolo=='rup' && check.inser_terminati">
+             
+                  <div *ngIf="check.registri_da_compilare.length!=0 && !check.soglia_superata">
+                     
+                   <li *ngFor="let reg of check.registri_da_compilare" role="menuitem">
+                      Da compilare il registro
+                     <a  class="dropdown-item" href="#">{{reg}}</a>
+                   </li>
+                  </div>
+  
+                  <div *ngIf="check.registri_da_compilare.length!=0 && check.soglia_superata">
+                       
+                      <li *ngFor="let reg of check.registri_da_compilare" role="menuitem">
+                          Soglia superata, registro
+                          <a  class="dropdown-item">{{reg}}</a>
+                          non compilabile
+                      </li>
+                  </div>
+  
+                  <div *ngIf="check.registri_da_compilare.length==0">
+                      Non ci sono registri da compilare
+                    
+                  </div>
+              </div>
+  
+  
+  
+              <div *ngIf="informazioni.ruolo=='rup' && !check.inser_terminati">
+                  <li role="menuitem">
+                      <a class="dropdown-item" routerLink="/addSoglia">Contratto non terminato</a>
+                    </li>
+                  <li role="menuitem">
+                    <a class="dropdown-item" routerLink="/addLavoro">Hai inserito {{check.num_lavori}} lavori</a>
+                  </li>
+  
+                  <li role="menuitem">
+                      <a class="dropdown-item" routerLink="/addSoglia">Soglia inserita: {{check.soglia}}</a>
+                    </li>
+                </div>
+  
+          <!-------------------------------------------------------------------------------------------------->
+  
+          <div *ngIf="informazioni.ruolo=='dit'">
+              <div *ngIf="check.libretti.length!=0">
+                
+                <li *ngFor="let c of check.libretti">
+                    Devi inserire la firma nel libretto 
+                  <a class="dropdown-item" href="#">{{c.num_libretto}} in data {{c.timestamp | date: 'yyyy-MM-dd'}}</a>
+                </li>
+              </div>
+  
+          </div>
+              
+             
+  
+              
+              
+            </ul>
+          </div>
+        
+        
+      
+      </li>
+  
+    </div>
+  
+      <li class="nav-item" *ngIf="cookieService.get('token')===''">
+        <button class="btn btn-success" (click)="ngxSmartModalService.getModal('log').open();">Login</button>
+      </li>
+      <li class="nav-item" *ngIf="cookieService.get('token')!=''">
+        <button class="btn btn-success" (click)="logout()">Logout</button>
+      </li>
+      
+    </ul>
+  </nav>
+  
+  
+  
+  
+  <ngx-smart-modal #log identifier='log' [closable]="false" [escapable]="false" [dismissable]="false">
+    <form class="text-center border border-light p-5" #loginForm="ngForm" >
+  
+        <p class="h4 mb-4">Sign in</p>
+        <input type="text" id="username" name="username" class="form-control mb-4" placeholder="User" [(ngModel)]="username" #user="ngModel" required>
+        <div [hidden]="user.valid || user.pristine"
+        class="alert alert-danger">
+        Username is required
+       </div>
+  
+        <input type="password" id="password" name="password" class="form-control mb-4" placeholder="Password" [(ngModel)]="password" #pass="ngModel" required>
+        <div [hidden]="pass.valid || pass.pristine"
+        class="alert alert-danger">
+        Password is required
+       </div>
+  
+        <button class="btn btn-info btn-block my-4" type="submit" (click)="login(); " [disabled]="!loginForm.form.valid">Sign in</button>
+    
+    </form>
+    
+  </ngx-smart-modal>
+  

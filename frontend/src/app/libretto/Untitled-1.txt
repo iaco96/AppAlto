@@ -1,0 +1,54 @@
+[
+    {
+        "num_libretto": 1,
+        "righi": [
+            {
+                "timestamp": 1567068968560,
+                "descrizione": "ffff",
+                "sovrascritto": 3,
+                "num_rigo": 1,
+                "codLavoro": "02",
+                "percentuale": 44.5,
+                "allegati": [
+                    "Non è presente nessun allegato"
+                ],
+                "firmato": false,
+                "firmato_riserva": false,
+                "riserva_dir": false,
+                "percentuale_riserva": 0,
+                "descrizione_riserva": ""
+            },
+            {
+                "timestamp": 1567069006644,
+                "descrizione": "ffv",
+                "sovrascritto": 0,
+                "num_rigo": 2,
+                "codLavoro": "02",
+                "percentuale": 0.005,
+                "allegati": [
+                    "Non è presente nessun allegato"
+                ],
+                "firmato": false,
+                "firmato_riserva": false,
+                "riserva_dir": false,
+                "percentuale_riserva": 0,
+                "descrizione_riserva": ""
+            },
+            {
+                "timestamp": 1567069071571,
+                "descrizione": "rgg",
+                "sovrascritto": 0,
+                "num_rigo": 3,
+                "codLavoro": "02",
+                "percentuale": 3,
+                "allegati": [
+                    "Non è presente nessun allegato"
+                ],
+                "firmato": false,
+                "firmato_riserva": false,
+                "riserva_dir": false,
+                "percentuale_riserva": 0,
+                "descrizione_riserva": ""
+            }
+        ]
+    }]

@@ -1,0 +1,18 @@
+check={
+    libretti:[
+        {
+            num_libretto:number, //per il DL indica i libretti a cui non è stata ancora inserita la risrrva.
+            timestamp:number    //per la ditta, indica i libretti che devono essere ancora firmati. il rup non riceve
+        },
+        {
+            ..
+        }
+    ],
+    giornale: boolean, //dice se hai compilato il giornale di oggi, lo riceve solo il dir
+    inser_terminati: boolean, //solo rup, indica se il contratto non è  stato ancora terminato. Solo prima della terminazione
+    num_lavori: number, //solo rup,, prima della terminazione del contratto
+    soglia: number, //solo rup,, prima della terminazione del contratto
+    registri_da_compilare: number[] //dice di quali libretti è possibile effettuare il sal
+    soglia_superata: boolean //indica fino a che la soglia è superata non ti fa compilare altri registri, quindi disabilitare il pulsante compila registro se sto valore è true
+
+}

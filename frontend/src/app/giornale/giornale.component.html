@@ -1,0 +1,149 @@
+
+
+<div class="container" *ngIf="filtersLoaded | async; else loading" >
+<br>
+<h2 style="text-align: center;"><i class="material-icons vertical-align-middle padding-bottom-3">menu_book</i> Giornale dei lavori </h2>
+
+<hr>
+
+<div *ngIf="giornale.length>0">
+  <h5>Giornale #{{giornale[0].num_giorn}}</h5>
+<div class="row" >
+    
+  <div class="col-sm" > 
+  <table class="table table-hover " >
+    <thead >
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Descr. Lavoro</th>
+        <th scope="col">Personale (ore)</th>
+        <th scope="col">Attrezzatura</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rigo of giornale[0].righi">
+        
+        <ng-container *ngIf="rigo.sovrascritto!=0">
+            <th scope="row" class="table-danger">{{rigo.num_rigo}}</th>
+            <td class="table-danger">
+                {{rigo.descrizione}}
+            </td>
+            <td class="table-danger"> 
+                <ul >
+                    <li *ngFor="let pers of rigo.personale">
+                    {{pers.quantita}} {{pers.qualita}} ({{pers.ore}})
+                    </li>
+                </ul>
+            </td>
+            <td class="table-danger">
+                <ul>
+                    <li *ngFor="let att of rigo.attrezzatura">
+                            {{att.quantitaAtt}} {{att.nomeAtt}}  
+                    </li>
+                </ul>
+            </td>
+            <td class="table-danger">
+              Sovrascritto dal rigo {{rigo.sovrascritto}}
+            </td>
+        </ng-container>
+
+
+        <ng-container *ngIf="rigo.sovrascritto==0">
+            <th scope="row">{{rigo.num_rigo}}</th>
+            <td>
+                {{rigo.descrizione}}
+            </td>
+            <td>
+              <ul >
+                <li *ngFor="let pers of rigo.personale">
+                {{pers.quantita}} {{pers.qualita}} ({{pers.ore}})
+                </li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li *ngFor="let att of rigo.attrezzatura">
+                        {{att.quantitaAtt}} {{att.nomeAtt}}  
+                </li>
+              </ul>
+            </td>
+            <td>
+              <button *ngIf="cookieService.get('ruolo')=='dir'" routerLink="/updateGiornale/{{giornale[0].num_giorn}}/{{rigo.num_rigo}}" class="btn btn-outline-success"><i class="material-icons vertical-align-middle padding-bottom-3">edit</i>&nbsp;Modifica</button>
+            </td>
+        </ng-container> 
+      </tr>
+      
+    </tbody>
+  </table>
+</div>
+</div>
+
+<div class="row" >
+<div class="col-sm" > 
+<a *ngIf="cookieService.get('ruolo')=='dir'" routerLink="/addGiornale" class="btn btn-info" style="margin: 10px;"><i class="material-icons vertical-align-middle padding-bottom-3">playlist_add</i>&nbsp;Aggiungi rigo</a>
+
+
+<button *ngIf="cookieService.get('ruolo')=='dir'" [disabled]="giornale[0].righi.length == 0" (click)="finishGiornale()" class="btn btn-danger"><i class="material-icons vertical-align-middle padding-bottom-3">check</i>&nbsp;Termina giornale</button>
+</div>
+
+</div>
+
+</div>
+<br>
+<br>
+<br>
+
+
+
+
+<div class="container">
+<br>
+<br>
+<div class="row">
+<div class="col-sm" >
+<h6> Seleziona la data della quale vuoi vedere i giornali</h6>
+</div>
+</div>
+<div class="row">
+<div class="col-sm" >
+<!---<input type="date" name="bday" [(ngModel)]="data" style="margin: 10px; ">-->
+<bs-datepicker-inline
+  placeholder="Daterangepicker"
+  bsDaterangepicker
+  [dateCustomClasses]="dateCustomClasses"
+  (bsValueChange)="onValueChange($event)" class="theme-red"></bs-datepicker-inline>
+</div>
+<div class="col-sm" >
+<button routerLink="/visualizzaGiornali/{{data | date: 'yyyy-MM-dd'}}" class="btn btn-outline-danger" style="margin: 10px; text-align: left;"><i class="material-icons vertical-align-middle padding-bottom-3">search</i>&nbsp;Visualizza giornali</button>
+</div>
+<div class="col-sm" >
+
+</div>
+<div class="col-sm" >
+
+  </div>
+
+</div>
+</div>
+
+</div>
+
+<ng-template #loading>
+    <div class="d-flex justify-content-center">
+  <div class="spinner-grow text-muted" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-success" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-info" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-warning" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-danger" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-secondary" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-dark" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-light" style="width: 3rem; height: 3rem;"></div></div>
+</ng-template>
+
+
+
+
+
+

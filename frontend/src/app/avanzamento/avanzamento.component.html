@@ -1,0 +1,38 @@
+<br>
+<div class="container-fluid">
+  <h2 style="text-align: center;"><i class="material-icons vertical-align-middle padding-bottom-3">timeline</i>  Andamento dello stato dei lavori</h2>
+  <hr>
+  <div class="row">
+
+    <div class="col-sm">
+
+      <canvas baseChart
+              [datasets]="barChartData"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType">
+      </canvas>
+    </div>
+    <div class="col-sm" >
+      <h5 *ngIf="barChartData[0].data.length==0">Sal ancora non compilato, nessun avanzamento da visualizzare</h5>
+      <h5 *ngIf="barChartData[0].data.length>0 && tableElements.length==0">Clicca i punti sul grafico per visualizzare il riassunto del sal selezionato</h5>
+      
+      <table class="table" [hidden]="tableElements.length==0">
+        <thead>
+        <tr>
+          <th scope="col">Data</th>
+          <th scope="col">Numero SAL</th>
+          <th scope="col">Valore monetario</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let elem of tableElements; let i = index">
+          <td>{{elem.dataset | date: 'dd/MM/yyyy HH:mm'}}</td>
+          <td>{{elem.num}}</td>
+          <td>{{elem.value}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+</div>

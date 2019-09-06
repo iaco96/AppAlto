@@ -1,0 +1,191 @@
+<br>
+<div class="container" *ngIf="sommaLoaded | async; else loading">
+    <div class="row" >
+
+        <div class="col-sm"></div>
+        <div class="col-sm" >
+        <h2 style="text-align: center;">  Lavori inseriti</h2>
+        </div>
+        <div class="col-sm " style="vertical-align: center;">
+          <span class="btn btn-outline-info"><B>Costo totale lavori:</B> {{somma}}</span>
+        </div>
+        
+    </div>
+    <hr>
+    <div class="row" >
+        <div class="col-sm" > 
+    
+    <table class="table table-hover" [hidden]="result.length==0" >
+        <thead>
+        <tr>
+          <th scope="col">Codice lavoro</th>
+          <th scope="col">Nome lavoro</th>
+          <th scope="col">Costo lavoro</th>
+          <th scope="col">Azioni</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let elem of result">
+          <td>{{elem.codLavoro}}</td>
+          <td>{{elem.nomeLavoro}}</td>
+          <td>{{elem.costoLavoro}}&euro;</td>
+          <td> <button class="btn btn-outline-success" (click)="ngxSmartModalService.getModal(elem.codLavoro).open();"><i class="material-icons vertical-align-middle padding-bottom-3">edit</i>&nbsp;Modifica</button></td>
+        </tr>
+        </tbody>
+      </table>
+  </div>
+  </div>
+</div>
+  
+  <div class="container">
+      <div class="row">
+        <div class="col-lm">
+          <button class="btn btn-info" (click)="ngxSmartModalService.getModal('addLavoro').open();"><i class="material-icons vertical-align-middle padding-bottom-3">playlist_add</i>&nbsp;Aggiungi lavoro</button>
+        </div>
+
+        
+
+      
+        
+           
+      <div class="col-sm" style="margin:0.5em; text-align:right;">
+        <h6>Inserisci valore soglia:</h6>
+      </div>
+
+
+
+
+      <div class="col-lm"> 
+      <form #sogliaForm="ngForm">
+        
+        <div class="form-group">
+          
+          <input type="number" class="form-control" id="soglia" [(ngModel)]="soglia" name="soglia"
+           #sogl="ngModel" required>
+           <div [hidden]="sogl.valid || sogl.pristine"
+             class="alert alert-danger">
+             Valore di soglia is required
+            </div>
+          </div>
+        
+        <div class="col-sm">
+      <button type="submit" (click)="updateSoglia(sogliaForm)"class="btn btn-danger" [disabled]="!sogliaForm.form.valid"><i class="material-icons vertical-align-middle padding-bottom-3">check</i>&nbsp;Termina contratto</button>
+    </div> 
+  </form>
+    </div>
+    </div> 
+  </div> 
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<!--INIZIANO I MODAL -------------------------------------------------------------------------------------------------->
+
+
+  <div *ngFor="let ris of result">
+      <ngx-smart-modal #{{ris.codLavoro}} identifier={{ris.codLavoro}}>
+        <h3>Modifica il lavoro #{{ris.codLavoro}} </h3>
+        <form #updateForm="ngForm">
+            
+      
+          <div class="form-group">
+              <label for="newNomeLavoro">Nome lavoro:</label>
+              <textarea class="form-control" id="newNomeLavoro" [(ngModel)]="nomi[ris.codLavoro]" name="newNomeLavoro" 
+              #newNome="ngModel" placeholder={{ris.nomeLavoro}} required rows="3" value="ris.nomeLavoro"></textarea>
+              <div [hidden]="newNome.valid || newNome.pristine"
+                 class="alert alert-danger">
+                 Nome Lavoro is required
+                </div>
+            </div>
+  
+            <div class="form-group">
+                <label for="newCcostoLavoro">Costo lavoro:</label>
+                <input type="number" class="form-control" id="newCostoLavoro" [(ngModel)]="costi[ris.codLavoro]" name="newCostoLavoro"
+                 #newCosto="ngModel" placeholder={{ris.costoLavoro}} required value="ris.costoLavoro">
+                 <div [hidden]="newCosto.valid || newCosto.pristine"
+                   class="alert alert-danger">
+                   Costo lavoro is required
+                  </div>
+              </div>
+        </form>
+      
+        <button class="btn btn-success" (click)="updateLavoro(ris.codLavoro,updateForm); ngxSmartModalService.getModal(ris.codLavoro).close()" [disabled]="!updateForm.form.valid"><i class="material-icons vertical-align-middle padding-bottom-3">edit</i>&nbsp;Modifica</button>
+      </ngx-smart-modal>
+      </div>
+   
+  
+  
+
+
+
+
+ <ngx-smart-modal #addLavoro identifier='addLavoro'>
+              <h3>Aggiungi lavoro </h3>
+        <form #lavoroForm="ngForm">
+          
+            <div class="form-group">
+                <label for="codLavoro">Codice lavoro:</label>
+                <input type="text" class="form-control" id="codLavoro" [(ngModel)]="codLavoro" name="codLavoro"
+                 #cod="ngModel" required>
+                 <div [hidden]="cod.valid || cod.pristine"
+                   class="alert alert-danger">
+                   Codice lavoro is required
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="nomeLavoro">Nome lavoro:</label>
+                  <textarea class="form-control" id="nomeLavoro" [(ngModel)]="nomeLavoro" name="nomeLavoro" 
+                  #nome="ngModel" required rows="3"></textarea>
+                  <div [hidden]="nome.valid || nome.pristine"
+                     class="alert alert-danger">
+                     Nome Lavoro is required
+                    </div>
+                </div>
+            
+            
+                <div class="form-group">
+                  <label for="costoLavoro">Costo lavoro:</label>
+                  <input type="number" class="form-control" id="costoLavoro" [(ngModel)]="costoLavoro" name="costoLavoro"
+                   #costo="ngModel" required>
+                   <div [hidden]="costo.valid || costo.pristine"
+                     class="alert alert-danger">
+                     Costo lavoro is required
+                    </div>
+                </div>
+          
+                
+            <button class="btn btn-info" (click)="aggiungiLavoro(lavoroForm); ngxSmartModalService.getModal('addLavoro').close();"><i class="material-icons vertical-align-middle padding-bottom-3">playlist_add</i>&nbsp;Aggiungi</button>
+              </form>
+            
+              
+            </ngx-smart-modal>
+      
+
+            <ng-template #loading>
+                <div class="d-flex justify-content-center">
+              <div class="spinner-grow text-muted" style="width: 3rem; height: 3rem;"></div>
+            <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;"></div>
+            <div class="spinner-grow text-success" style="width: 3rem; height: 3rem;"></div>
+            <div class="spinner-grow text-info" style="width: 3rem; height: 3rem;"></div>
+            <div class="spinner-grow text-warning" style="width: 3rem; height: 3rem;"></div>
+            <div class="spinner-grow text-danger" style="width: 3rem; height: 3rem;"></div>
+            <div class="spinner-grow text-secondary" style="width: 3rem; height: 3rem;"></div>
+            <div class="spinner-grow text-dark" style="width: 3rem; height: 3rem;"></div>
+            <div class="spinner-grow text-light" style="width: 3rem; height: 3rem;"></div></div>
+            </ng-template>
+            
+            
+            
+            
+          

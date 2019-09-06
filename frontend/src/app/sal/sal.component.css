@@ -1,0 +1,14 @@
+.bs-datepicker {
+  box-shadow: none !important;
+}
+::ng-deep .theme-red .bs-datepicker-body table td span {
+  border-radius: 0rem;
+}
+::ng-deep .theme-red .bs-datepicker-body table td span.has_register {
+  background-color: #e7bdbd !important;
+}
+::ng-deep .theme-red .bs-datepicker-body table td span.selected {
+  background-color: #e23f3f !important;
+}
+
+

@@ -1,0 +1,322 @@
+<div *ngIf="filtersLoaded | async; else loading" class="container">
+    <br>
+    <h2 style="text-align: center;"><i class="material-icons">library_books</i> Libretto delle misure </h2>
+    
+    <hr>
+    
+<div *ngIf="libretto.length>0 ">
+  <div *ngIf="checkPromise | async">
+  <div *ngIf="cookieService.get('ruolo')!='dir' || !check.lavori_terminati">
+<h5>Libretto delle misure  #{{libretto[0].num_libretto}}</h5>
+
+<div class="row" >
+  <div class="col-sm">
+<table class="table table-hover " >
+    <thead >
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Data</th>
+        <th scope="col">Cod. Lavoro</th>
+        <th scope="col">Descrizione</th>
+        <th scope="col">Percentuale</th>
+        <th scope="col">Allegati</th>
+        <th scope="col">Sovrascritto</th>
+        <th *ngIf="cookieService.get('ruolo')!='dir'" scope="col">Firma</th>
+        <th *ngIf="cookieService.get('ruolo')!='dir'" scope="col">Riserva</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rigo of libretto[0].righi; trackBy: trackElement">
+        
+        <ng-container *ngIf="rigo.sovrascritto!=0">
+            <th scope="row" class="table-danger">{{rigo.num_rigo}}</th>
+            <td class="table-danger">
+                {{rigo.timestamp | date: 'yyyy-MM-dd'}}
+            </td>
+
+            <td class="table-danger"> 
+                {{rigo.codLavoro}}
+             </td>
+
+            <td class="table-danger"> 
+               {{rigo.descrizione}}
+            </td>
+
+            <td class="table-danger"> 
+                {{rigo.percentuale}}
+             </td>
+
+            <td class="table-danger">
+                <ul>
+                    <li *ngFor="let all of rigo.allegati;  let i = index">
+                      <a *ngIf="all !== 'Non è presente nessun allegato'" (click)='apriAllegato(all)'>Allegato #{{i}}</a>
+                      <a *ngIf="all === 'Non è presente nessun allegato'" (click)='apriAllegato(all)'>Non è presente nessun allegato.</a>
+                     </li>
+                </ul>
+            </td>
+
+            
+
+            <td class="table-danger">
+              Sovrascritto dal rigo {{rigo.sovrascritto}}
+            </td>
+
+
+
+            <td class="table-danger" *ngIf="cookieService.get('ruolo')!='dir'"> 
+                
+              </td>
+            <td class="table-danger" *ngIf="cookieService.get('ruolo')!='dir'"> 
+                
+              </td>
+
+        </ng-container>
+
+
+        <ng-container *ngIf="rigo.sovrascritto==0">
+            <th scope="row">{{rigo.num_rigo}}</th>
+            <td>
+                {{rigo.timestamp | date: 'yyyy-MM-dd'}}
+            </td>
+
+            <td> 
+                {{rigo.codLavoro}}
+             </td>
+
+            <td> 
+               {{rigo.descrizione}}
+            </td>
+
+            <td> 
+                {{rigo.percentuale}}%
+             </td>
+
+            <td>
+                <ul>
+                  <li *ngFor="let all of rigo.allegati;  let i = index">
+                    <a *ngIf="all !== 'Non è presente nessun allegato'" class="btn btn-warning" (click)='apriAllegato(all)' style="text-align: left; width: 7em; margin-bottom: 0.2em;">Allegato #{{i}}</a>
+                    <a *ngIf="all === 'Non è presente nessun allegato'" (click)='apriAllegato(all)'>Non è presente nessun allegato.</a>
+
+                  </li>
+                </ul>
+            </td>
+
+
+            <td *ngIf="cookieService.get('ruolo') == 'dir'">
+                <button class="btn btn-outline-success "   (click)="ngxSmartModalService.getModal(rigo.num_rigo.toString()).open()"><i class="material-icons vertical-align-middle padding-bottom-3">edit</i>&nbsp;Modifica </button>
+
+              </td>
+             <td *ngIf="cookieService.get('ruolo') != 'dir'">
+                 Non è stato sovrascritto
+  
+                </td>
+
+            <td *ngIf="cookieService.get('ruolo')=='rup' && !rigo.firmato"> 
+               Rigo non firmato
+              </td>
+              <td *ngIf="cookieService.get('ruolo')=='rup' && !rigo.firmato"> 
+                 -
+                 </td>
+
+            <td *ngIf="cookieService.get('ruolo')=='dit' && !rigo.firmato"> 
+                <button (click)="firma(libretto[0].num_libretto,rigo.num_rigo,false)" class="btn btn-dark" style="text-align: left; width: 12em; margin-bottom: 0.5em;"><i class="material-icons vertical-align-middle padding-bottom-3">fingerprint</i>&nbsp;Firma</button>
+                <button (click)="firma(libretto[0].num_libretto,rigo.num_rigo,true)" class="btn btn-outline-dark" style="text-align: left; width: 12em;"><i class="material-icons vertical-align-middle padding-bottom-3">fingerprint</i>&nbsp;Firma con riserva</button>
+              </td>
+
+            <td *ngIf="cookieService.get('ruolo')!='dir' && rigo.firmato && !rigo.firmato_riserva"> 
+                Rigo firmato senza riserva
+              </td>
+
+            <td *ngIf="cookieService.get('ruolo')!='dir' && rigo.firmato && rigo.firmato_riserva"> 
+                Rigo firmato con riserva
+              </td>
+
+            <td *ngIf="cookieService.get('ruolo')!='dir' && rigo.firmato_riserva && !rigo.riserva_dir"> 
+                Riserva non ancora inserita
+              </td>
+            <td *ngIf="cookieService.get('ruolo')!='dir' && rigo.firmato_riserva && rigo.riserva_dir"> 
+                  <ul>
+                    <li>Percentuale Riserva: {{rigo.percentuale_riserva}}</li>
+                    <li>Descrizione Riserva: {{rigo.descrizione_riserva}}</li>
+                  </ul>
+                </td>
+
+            <td *ngIf="cookieService.get('ruolo')!='dir' && !rigo.firmato_riserva"> 
+                    -
+                  </td>
+        </ng-container>
+ 
+      </tr>
+      
+    </tbody>
+  </table> 
+</div>
+</div>
+<div class="row" *ngIf="checkPromise | async">
+  <div class="col-sm" >
+      <button class="btn btn-info" *ngIf="cookieService.get('ruolo') == 'dir'"  [disabled]="check.lavori_terminati" (click)="ngxSmartModalService.getModal('addMisura').open();"  style="margin: 10px;"><i class="material-icons vertical-align-middle padding-bottom-3">playlist_add</i>&nbsp;Aggiungi misura</button>
+      <button (click)="finishLibretto()"  *ngIf="cookieService.get('ruolo') == 'dir'"  [disabled]="libretto[0].righi.length <= 0" class="btn btn-danger"><i class="material-icons vertical-align-middle padding-bottom-3">check</i>&nbsp;Termina libretto</button>
+
+ </div>
+  
+
+</div>
+</div>
+</div>
+</div>
+
+  <br>
+<br>
+<br>
+<br>
+<br>
+<h5> Seleziona la data della quale vuoi vedere i libretti</h5>
+<div class="row">
+
+<div class="col-sm">
+<!--<input type="date" name="bday" [(ngModel)]="data" style="margin: 10px; ">-->
+<bs-datepicker-inline
+  placeholder="Daterangepicker"
+  bsDaterangepicker
+  [dateCustomClasses]="dateCustomClasses"
+  (bsValueChange)="onValueChange($event)" class="theme-red"></bs-datepicker-inline>
+
+</div>
+<div class="col-sm">
+<button *ngIf="cookieService.get('ruolo') == 'dir' || cookieService.get('ruolo') == 'rup' " routerLink="/visualizzaLibretti/{{data | date: 'yyyy-MM-dd'}}" class="btn btn-outline-danger"><i class="material-icons vertical-align-middle padding-bottom-3">search</i>&nbsp;Visualizza Libretti</button>
+</div>
+<div class="col-sm">
+<button *ngIf="cookieService.get('ruolo') == 'dit'" routerLink="/visualizzaLibrettiDitta/{{data |  date: 'yyyy-MM-dd'}}" class="btn btn-outline-danger"><i class="material-icons vertical-align-middle padding-bottom-3">search</i>&nbsp;Visualizza Libretti</button>
+</div>
+<div class="col-sm"></div>
+</div>
+
+</div>
+
+
+
+
+
+
+<div *ngIf="filtersLoaded | async">
+<ngx-smart-modal #addMisura identifier='addMisura'>
+    <h3>Aggiungi misura </h3>
+    <form #misuraForm="ngForm">
+
+        <div class="form-group">
+            <label for="codLavoro">Codice lavoro:</label>
+            <select class="form-control" id="codLavoro" name="codLavoro" [(ngModel)]="codLavoro">
+              <option *ngFor="let cod of codLavori">{{cod}}</option>
+              
+            </select>
+          </div>
+
+      
+    
+      <div class="form-group">
+        <label for="descrizione">Descrizione:</label>
+        <textarea class="form-control" id="descrizione" [(ngModel)]="descrizione" name="descrizione" 
+        #desc="ngModel" required rows="3"></textarea>
+        <div [hidden]="desc.valid || desc.pristine"
+           class="alert alert-danger">
+           Descrizione is required
+          </div>
+      </div>
+
+      <div class="form-group">
+          <label for="percentuale">Percentuale (%):</label>
+          <input type="number" max="100" min="1" class="form-control" id="percentuale" [(ngModel)]="percentuale" name="percentuale"
+           #perc="ngModel" required>
+           <div [hidden]="perc.valid || perc.pristine"
+             class="alert alert-danger">
+             Percentuale is required
+            </div>
+        </div>
+        
+              <div class="form-group">
+                 <label for="file"><i class="material-icons vertical-align-middle padding-bottom-3" multiple>attach_file</i> Allega file</label>
+                 <input type="file" class="btn btn-outline-info"
+                 id="file"
+                 (change)="handleFileInput($event.target.files)">
+      </div>
+      
+
+      
+    <button class="btn btn-info" [disabled]="!misuraForm.form.valid" *ngIf="cookieService.get('ruolo') == 'dir'" (click)="aggiungiMisura(misuraForm); ngxSmartModalService.getModal('addMisura').close(); "><i class="material-icons vertical-align-middle padding-bottom-3">playlist_add</i>&nbsp;Aggiungi</button>
+    </form>
+  
+    
+  </ngx-smart-modal>
+</div>
+
+
+
+  <div *ngIf="filtersLoaded | async">
+  <div *ngFor="let rigo of libretto[0].righi">
+      <ngx-smart-modal #{{rigo.num_rigo}} identifier={{rigo.num_rigo}}>
+          <h3>Modifica misura </h3>
+          <form #modificaForm="ngForm">
+      
+              <div class="form-group">
+                  <label for="newCodLavoro">Codice lavoro:</label>
+                  <select class="form-control" id="newCodLavoro" name="newCodLavoro" [(ngModel)]="newCodLavoro[rigo.num_rigo]">
+                    <option *ngFor="let cod of codLavori">{{cod}}</option>
+                    
+                  </select>
+                </div>
+      
+            
+          
+            <div class="form-group">
+              <label for="newDescrizione">Descrizione:</label>
+              <textarea class="form-control" id="newDescrizione" [(ngModel)]="newDescrizione[rigo.num_rigo]" name="newDescrizione" 
+              #desc="ngModel" required rows="3"></textarea>
+              <div [hidden]="desc.valid || desc.pristine"
+                 class="alert alert-danger">
+                 Descrizione is required
+                </div>
+            </div>
+      
+            <div class="form-group">
+                <label for="newPercentuale">Percentuale (%):</label>
+                <input type="number" max="100" min="1" class="form-control" id="newPercentuale" [(ngModel)]="newPercentuale[rigo.num_rigo]" name="newPercentuale"
+                 #perc="ngModel" required>
+                 <div [hidden]="perc.valid || perc.pristine"
+                   class="alert alert-danger">
+                   Percentuale is required
+                  </div>
+              </div>
+      
+              <div class="form-group">
+                  <label for="file"><i class="material-icons vertical-align-middle padding-bottom-3" multiple>attach_file</i> Allega file</label>
+                  <input type="file" class="btn btn-outline-info"
+                  id="file"
+                  (change)="handleFileInput($event.target.files)">
+       </div>
+            
+      
+            
+          <button class="btn btn-success" [disabled]="!modificaForm.form.valid"  *ngIf="cookieService.get('ruolo') == 'dir'"  (click)="updateMisura(rigo.num_rigo,modificaForm); ngxSmartModalService.getModal(rigo.num_rigo.toString()).close()"><i class="material-icons vertical-align-middle padding-bottom-3">edit</i>&nbsp;Modifica</button>
+          </form>
+        
+          
+        </ngx-smart-modal>
+      
+  </div>
+</div>
+
+
+
+
+<ng-template #loading>
+  <div class="d-flex justify-content-center">
+<div class="spinner-grow text-muted" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-success" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-info" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-warning" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-danger" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-secondary" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-dark" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-light" style="width: 3rem; height: 3rem;"></div></div>
+</ng-template>

@@ -1,0 +1,106 @@
+<div *ngIf="filtersLoaded2 | async; else loading" style="margin-left:1em; margin-right: 1em">
+<div class="container">
+    <br>
+    <div class="row"> 
+        <div class="col-sm">
+            <h2 style="text-align: center;"><i class="material-icons vertical-align-middle padding-bottom-3">attach_money</i> Registro contabilità</h2>
+           </div>
+      </div>
+      <hr>
+
+    <h5  *ngIf="registro.length>0">Registro #{{registro[0].num_registro}}</h5>
+    <div class="row"  *ngIf="registro.length>0">
+      
+      <div class="col-sm">
+<table class="table table-hover "> 
+  <thead > 
+    <tr> 
+      <th scope="col">#</th> 
+      <th scope="col">Codice Lavoro</th> 
+      <th scope="col">Nome Lavoro</th> 
+      <th scope="col">Percentuale</th> 
+      <th scope="col">Prezzo</th> 
+      <th scope="col">Debito</th> 
+    </tr> 
+  </thead> 
+  <tbody> 
+    <tr *ngFor="let rigo of registro[0].righi; trackBy: trackElement"> 
+     
+          <th scope="row">{{rigo.num_rigo}}</th> 
+ 
+          <td>  
+            {{rigo.codLavoro}} 
+           </td> 
+ 
+          <td>  
+            {{rigo.nomeLavoro}} 
+          </td> 
+ 
+          <td>  
+            {{rigo.percentuale_raggiunta_lavoro}}%
+          </td> 
+
+          <td> 
+            {{rigo.costoLavoro}} &euro;<br>
+            ({{rigo.percentuale_lavoro_sul_totale}}%)
+          </td>
+ 
+          <td> 
+            {{rigo.costo_raggiunto}}&euro;<br>
+            ({{rigo.percentuale_lavoro_sul_totale_raggiunta}}%)
+          </td> 
+       
+    </tr> 
+  </tbody> 
+</table>
+</div>
+</div>
+
+
+<br>
+<br>
+
+
+
+<div class="row">
+<div class="col-sm">
+<div *ngIf="regDaCompilareLoaded2 | async" >
+    <div *ngIf="cookieService.get('ruolo')=='rup' && registri_da_compilare.length>0 && !soglia_superata">  <!-- &-->
+      <button (click)="abilitaRegistro()" class="btn btn-outline-danger" style="margin: 10px;">Compila registro numero {{registri_da_compilare[0].num_libretto}}</button> relativo al
+      <a routerLink="/visualizzaLibretti/{{registri_da_compilare[0].timestamp | date: 'yyyy-MM-dd'}}">libretto in data {{registri_da_compilare[0].timestamp | date: 'yyyy-MM-dd'}}</a>.
+    </div>
+    </div>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-sm" >
+<h6> Seleziona la data della quale vuoi vedere i registri:</h6>
+</div></div>
+<br>
+<div class="row">
+    <div class="col-sm">
+        <bs-datepicker-inline
+        placeholder="Daterangepicker"
+        bsDaterangepicker
+        [dateCustomClasses]="dateCustomClasses"
+        (bsValueChange)="onValueChange($event)" class="theme-red"></bs-datepicker-inline>
+
+        <button routerLink="/visualizzaRegistri/{{data}}" class="btn btn-outline-danger"  style="margin: 10px; text-align: left;"><i class="material-icons vertical-align-middle padding-bottom-3">search</i>&nbsp;Visualizza registri</button>
+        </div>
+</div>
+</div>
+</div>
+
+<ng-template #loading>
+    <div class="d-flex justify-content-center">
+  <div class="spinner-grow text-muted" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-success" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-info" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-warning" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-danger" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-secondary" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-dark" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-light" style="width: 3rem; height: 3rem;"></div></div>
+  </ng-template>

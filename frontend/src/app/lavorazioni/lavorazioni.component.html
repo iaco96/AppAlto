@@ -1,0 +1,53 @@
+<div class="container" *ngIf="filtersLoaded | async; else loading">
+  <br>
+  <div class="row"> 
+      <div class="col-sm"> </div>
+    <div class="col-sm">
+     <h2 style="text-align: center;"><i class="material-icons vertical-align-middle padding-bottom-3">build</i> Lista lavorazioni </h2>
+    </div>
+    <div class="col-sm">
+        <button type="button" class="btn btn-outline-info" >Costo totale:{{somma}}</button>
+    </div>
+    
+  </div> 
+<hr>
+  <div class="row">
+    <div  class="col-sm">
+      <table class="table table-hover " >
+          <thead >
+            <tr>
+              <th scope="col">Codice lavoro</th>
+              <th scope="col">Nome Lavoro</th>
+              <th scope="col">Costo Lavoro</th>
+              <th scope="col">Percentuale completamento (%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ris of lavori">
+              <th>{{ris.codLavoro}}</th>
+              <td>{{ris.nomeLavoro}}</td>
+              <td>{{ris.costoLavoro}}&euro;</td>
+              <td>{{ris.perc_completamento}}%</td>
+            </tr>
+          </tbody>
+        </table>
+  
+  </div>
+ 
+
+</div>
+</div>
+  <ng-template #loading>
+      <div class="d-flex justify-content-center">
+    <div class="spinner-grow text-muted" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-success" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-info" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-warning" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-danger" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-secondary" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-dark" style="width: 3rem; height: 3rem;"></div>
+  <div class="spinner-grow text-light" style="width: 3rem; height: 3rem;"></div></div>
+  </ng-template>
+  
+  

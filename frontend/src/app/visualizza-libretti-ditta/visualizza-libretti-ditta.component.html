@@ -1,0 +1,168 @@
+<div *ngIf="filtersLoaded | async; else loading">
+    <div class="container" data-spy="scroll" data-target="#container-merda">
+      <div class="row">
+        <div class="col-sm" >
+          <br>
+          <h2 style="text-align: center;"><i class="material-icons">library_books</i> Libretto delle misure </h2>
+          
+
+          <hr>
+      </div>
+      </div>
+  
+<div *ngFor="let libretto of librettiData; let lib=index">
+    <br>
+    
+    <div class="row">
+    <div class="col-sm">
+        <div class="card" id="{{libretto.num_libretto}}">
+            <div class="card-header text-center">
+                <h5><strong>Libretto delle misure #{{libretto.num_libretto}}</strong></h5>
+              </div>
+          <div class="card-body">
+<table class="table table-hover " >
+  <thead >
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Data</th>
+      <th scope="col">Cod. Lavoro</th>
+      <th scope="col">Descrizione</th>
+      <th scope="col">Percentuale</th>
+      <th scope="col">Allegati</th>
+      <th scope="col">Sovrascritto</th>
+      <th scope="col">Firma</th>
+      <th scope="col">Riserva</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let rigo of libretto.righi; let i = index">
+      
+      <ng-container *ngIf="rigo.sovrascritto!=0">
+          <th scope="row" class="table-danger">{{rigo.num_rigo}}</th>
+          <td class="table-danger">
+              {{rigo.timestamp | date: 'yyyy-MM-dd'}} 
+          </td>
+
+          <td class="table-danger"> 
+              {{rigo.codLavoro}}
+           </td>
+
+          <td class="table-danger"> 
+             {{rigo.descrizione}}
+          </td>
+
+          <td class="table-danger"> 
+              {{rigo.percentuale}}%
+           </td>
+
+          <td class="table-danger">
+              
+          </td>
+          <td class="table-danger">
+            Sovrascritto dal rigo {{rigo.sovrascritto}}
+          </td>
+          <td class="table-danger"> 
+              
+           </td>
+           <td class="table-danger"> 
+              
+            </td>
+          
+      </ng-container>
+
+
+      <ng-container *ngIf="rigo.sovrascritto==0">
+          <th scope="row">{{rigo.num_rigo}}</th>
+          <td>
+              {{rigo.timestamp | date: 'yyyy-MM-dd'}} 
+          </td>
+
+          <td> 
+              {{rigo.codLavoro}}
+           </td>
+
+          <td> 
+             {{rigo.descrizione}}
+          </td>
+
+          <td> 
+              {{rigo.percentuale}}%
+          </td>
+
+          <td>
+            <ul>
+              <li *ngFor="let all of rigo.allegati;  let i = index">
+                <a *ngIf="all !== 'Non è presente nessun allegato'" class="btn btn-warning" (click)='apriAllegato(all)' style="text-align: left; width: 7em; margin-bottom: 0.2em;">Allegato #{{i}}</a>
+                <a *ngIf="all === 'Non è presente nessun allegato'" (click)='apriAllegato(all)' >Non è presente nessun allegato.</a>
+
+              </li>
+            </ul>
+        </td>
+
+          <td>
+              Non sovrascritto   
+          </td>
+
+          
+            <td *ngIf="rigo.firmato_riserva" > 
+              Firmato con riserva
+            </td>
+        
+
+        
+              <td *ngIf="rigo.firmato && !rigo.firmato_riserva"> 
+                Firmato senza riserva
+              </td>
+       
+
+          
+                <td  *ngIf="!rigo.firmato"> 
+                    <button (click)="firma(libretto.num_libretto,rigo.num_rigo,false)" class="btn btn-dark" style="text-align: left; width: 12em; margin-bottom: 0.5em;"><i class="material-icons vertical-align-middle padding-bottom-3">fingerprint</i>&nbsp;Firma</button>
+                  <button (click)="firma(libretto.num_libretto,rigo.num_rigo,true)"class="btn btn-outline-dark" style="text-align: left; width: 12em; margin-bottom: 0.5em;"><i class="material-icons vertical-align-middle padding-bottom-3">fingerprint</i>&nbsp;Firma con riserva</button>
+                  
+                </td>
+
+                <td *ngIf="rigo.firmato_riserva && !rigo.riserva_dir"> 
+                    Riserva non ancora inserita
+                  </td>
+                <td *ngIf="rigo.firmato_riserva && rigo.riserva_dir"> 
+                      <ul>
+                        <li>Percentuale Riserva: {{rigo.percentuale_riserva}}%</li>
+                        <li>Descrizione Riserva: {{rigo.descrizione_riserva}}</li>
+                      </ul>
+                    </td>
+     
+                <td *ngIf="!rigo.firmato_riserva"> 
+                        -
+                      </td>
+         
+      </ng-container>
+
+    </tr>
+    
+  </tbody>
+</table> 
+</div>
+<div class="card-footer text-muted  text-center">
+    {{libretto.timestamp | date: "yyyy-MM-dd"}}
+  </div>
+</div>
+<br>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<ng-template #loading>
+    <div class="d-flex justify-content-center">
+  <div class="spinner-grow text-muted" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-primary" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-success" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-info" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-warning" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-danger" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-secondary" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-dark" style="width: 3rem; height: 3rem;"></div>
+<div class="spinner-grow text-light" style="width: 3rem; height: 3rem;"></div></div>
+</ng-template>
