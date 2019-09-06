@@ -12,5 +12,18 @@ Durante lo svolgimento del progetto sono stati utilizzati:
 - Bootstrap per la parte grafica del frontend
 
 
+## Installazione
+
+Si richiede l'installazione di:
+- Virtual Box dal sito uffciale
+- Vagrant dal sito ufficiale
+- NodeJS dal sito ufficiale
+- Truffle con il comando da terminale: 'npm install -g truffle@5.0.17'
+- Angular con il comando da terminale: 'npm install -g @angular/cli'
+
+Dopo aver scaricato il repository, per ogni directory eseguire i comandi seguenti:
+
+- Blockchain:
+  - 
 
 ## Studenti: Roberto Broccoletti, Paolo Di Massimo, Luca Luzi, Davide Manco, Iacopo Pacifici
