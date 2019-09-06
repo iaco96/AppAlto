@@ -21,9 +21,14 @@ Si richiede l'installazione di:
 - Truffle con il comando da terminale: 'npm install -g truffle@5.0.17'
 - Angular con il comando da terminale: 'npm install -g @angular/cli'
 
-Dopo aver scaricato il repository, per ogni directory eseguire i comandi seguenti:
-
-- Blockchain:
-  - 
+Dopo aver scaricato il repository, all'interno di ogni directory eseguire i comandi seguenti:
+- Blockchain: 
+aprire un terminale e all'interno della cartella blockchain/quorum-examples-master digitare in sequenza i comandi:
+  - 'vagrant up'
+  - 'vagrant ssh'
+  - 'cd quorum-examples/7nodes'
+  - 'sudo ./raft-init.sh'
+  - 'sudo ./raft-start.sh'
+ 
 
 ## Studenti: Roberto Broccoletti, Paolo Di Massimo, Luca Luzi, Davide Manco, Iacopo Pacifici
