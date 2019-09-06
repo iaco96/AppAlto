@@ -1,4 +1,4 @@
-# AppAlto
+ppAlto
 
 Progetto per i corsi di Ingegneria del Software e Sicurezza Informatica riguardante l'implementazione di un applicazione web che permetta di automatizzare al meglio il processo di gestione di un contratto d'appalto edilizio.
 
@@ -17,32 +17,32 @@ Durante lo svolgimento del progetto sono stati utilizzati:
 Si richiede l'installazione di:
 - Virtual Box dal sito uffciale
 - Vagrant dal sito ufficiale
-- NodeJS dal sito ufficiale
-- Truffle con il comando da terminale: 'npm install -g truffle@5.0.17'
-- Angular con il comando da terminale: 'npm install -g @angular/cli'
+- NodeJS dal sito ufficiale 
+- Truffle con il comando da terminale: `npm install -g truffle@5.0.17`
+- Angular con il comando da terminale: `npm install -g @angular/cli`
 
 Dopo aver scaricato il repository, all'interno di ogni directory eseguire i comandi seguenti:
 - Blockchain: 
-aprire un terminale e all'interno della cartella blockchain/quorum-examples-master digitare in sequenza i comandi:
-  - 'vagrant up'
-  - 'vagrant ssh'
-  - 'cd quorum-examples/7nodes'
-  - 'sudo ./raft-init.sh'
-  - 'sudo ./raft-start.sh'
+aprire un terminale e all'interno della cartella `blockchain/quorum-examples-master` digitare in sequenza i comandi:
+  - `vagrant up`
+  - `vagrant ssh`
+  - `cd quorum-examples/7nodes`
+  - `sudo ./raft-init.sh`
+  - `sudo ./raft-start.sh`
 
 - Truffle: 
-aprire un nuovo terminale e all'interno della cartella truffle/ digitare il comando:
-  - 'truffle migrate --reset'
+aprire un nuovo terminale e all'interno della cartella `truffle/` digitare il comando:
+  - `truffle migrate --reset`
   
 - Backend:
-aprire un nuovo terminale e all'interno della cartella backend/ digitare in sequenza i comandi:
-  - 'npm install'
-  - 'npm start'
+aprire un nuovo terminale e all'interno della cartella `backend/` digitare in sequenza i comandi:
+  - `npm install`
+  - `npm start`
 
 - Frontend:
-aprire un nuovo terminale e all'interno della cartella frontend/ digitare in sequenza i comandi:
-  - 'npm install'
-  - 'npm start'
+aprire un nuovo terminale e all'interno della cartella `frontend/` digitare in sequenza i comandi:
+  - `npm install`
+  - `npm start`
   
 A questo punto è possibile utilizzare l'applicazione accedendo tramite browser all'indirizzo 'http://localhost:4200'.
  
