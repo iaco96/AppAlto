@@ -31,8 +31,9 @@ aprire un terminale e all'interno della cartella `blockchain/quorum-examples-mas
   - `sudo ./raft-start.sh`
 
 - Truffle: 
-aprire un nuovo terminale e all'interno della cartella `truffle/` digitare il comando:
-  - `truffle migrate --reset`
+aprire un nuovo terminale e all'interno della cartella `truffle/` digitare in sequenza i comandi:
+  - `truffle migrate --reset --network`
+  - `node riempi_db.js`
   
 - Backend:
 aprire un nuovo terminale e all'interno della cartella `backend/` digitare in sequenza i comandi:
