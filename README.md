@@ -11,4 +11,6 @@ Durante lo svolgimento del progetto sono stati utilizzati:
 - Angular 7 per il frontend
 - Bootstrap per la parte grafica del frontend
 
+
+
 Studenti: Roberto Broccoletti, Paolo Di Massimo, Luca Luzi, Davide Manco, Iacopo Pacifici
