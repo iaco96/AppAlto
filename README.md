@@ -29,6 +29,22 @@ aprire un terminale e all'interno della cartella blockchain/quorum-examples-mast
   - 'cd quorum-examples/7nodes'
   - 'sudo ./raft-init.sh'
   - 'sudo ./raft-start.sh'
+
+- Truffle: 
+aprire un nuovo terminale e all'interno della cartella truffle/ digitare il comando:
+  - 'truffle migrate --reset'
+  
+- Backend:
+aprire un nuovo terminale e all'interno della cartella backend/ digitare in sequenza i comandi:
+  - 'npm install'
+  - 'npm start'
+
+- Frontend:
+aprire un nuovo terminale e all'interno della cartella frontend/ digitare in sequenza i comandi:
+  - 'npm install'
+  - 'npm start'
+  
+A questo punto è possibile utilizzare l'applicazione accedendo tramite browser all'indirizzo 'http://localhost:4200'.
  
 
 ## Studenti: Roberto Broccoletti, Paolo Di Massimo, Luca Luzi, Davide Manco, Iacopo Pacifici
