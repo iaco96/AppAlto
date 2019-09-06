@@ -1,4 +1,4 @@
-AppAlto
+# AppAlto
 
 Progetto per i corsi di Ingegneria del Software e Sicurezza Informatica riguardante l'implementazione di un applicazione web che permetta di automatizzare al meglio il processo di gestione di un contratto d'appalto edilizio.
 
@@ -13,4 +13,4 @@ Durante lo svolgimento del progetto sono stati utilizzati:
 
 
 
-Studenti: Roberto Broccoletti, Paolo Di Massimo, Luca Luzi, Davide Manco, Iacopo Pacifici
+## Studenti: Roberto Broccoletti, Paolo Di Massimo, Luca Luzi, Davide Manco, Iacopo Pacifici
